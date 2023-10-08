@@ -1,0 +1,19 @@
+tasks:
+  - name: Install Databricks CLI
+    init: |
+      brew tap databricks/tap
+      brew install databricks
+    command: |
+      VAR1=$(which -a databricks)
+      VAR2="${VAR1//databricks/}"
+      export PATH="$VAR2:$PATH"
+      databricks -v
+  - name: Setup Python
+  - init: |
+      cd  lrn_databricks_dab
+      pip install -r requirements.txt
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - ms-python.python
