@@ -1,19 +1,66 @@
-tasks:
-  - name: Install Databricks CLI
-    init: |
-      brew tap databricks/tap
-      brew install databricks
-    command: |
-      VAR1=$(which -a databricks)
-      VAR2="${VAR1//databricks/}"
-      export PATH="$VAR2:$PATH"
-      databricks -v
-  - name: Setup Python
-  - init: |
-      cd  lrn_databricks_dab
-      pip install -r requirements.txt
+# tasks:
+#   - name: Install Databricks CLI
+#     init: |
+#       brew tap databricks/tap
+#       brew install databricks
+#     command: |
+#       VAR1=$(which -a databricks)
+#       VAR2="${VAR1//databricks/}"
+#       export PATH="$VAR2:$PATH"
+#       databricks -v
+#   - name: Setup Python
+#   - init: |
+#       cd  lrn_databricks_dab
+#       pip install -r requirements.txt
 
-vscode:
-  extensions:
-    - dbaeumer.vscode-eslint
-    - ms-python.python
+# vscode:
+#   extensions:
+#     - dbaeumer.vscode-eslint
+#     - ms-python.python
+
+tasks:
+  - name: All Tasks
+    before: echo 'before script'  ## Use this for tasks that need to run before init and before command. For example, customize the terminal or install global project dependencies.
+    init: echo 'init script' # Use this for heavy-lifting tasks such as downloading dependencies or compiling source code.
+    command: echo 'command script' # Use this to start your database or development server
+  - name: Env Task
+    env:
+      MYVAR: "Hello World"
+    command: echo $MYVAR 
+  - name: Account Env Task
+    command: echo $UNIQUE_NAMESPACE 
+  - name: Multiline Commmand Task
+    command: |
+      echo 'multiline command script 1' 
+      echo 'multiline command script 2' 
+  - name: Gitpod Default Env Variables
+    command: |
+      env | grep GITPOD_
+      echo $GITPOD_WORKSPACE_URL
+  - name: Await Task
+    command: |
+      gp sync-await tasktowaiton
+      echo 'awaited for another task'
+      TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+      echo "Timestamp: $TIMESTAMP"
+  - name: Awaited Task
+    command: |
+      gp sync-done tasktowaiton
+      echo 'awaited for this task'
+      TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+      echo "Timestamp: $TIMESTAMP"
+      sleep 1
+  - name: Installed Docker Version
+    command: docker version
+  - name: Installed Ruby Version
+    command: ruby -v
+  - name: Installed Java Version
+    command: java -version
+  - name: Installed Go Version
+    command: go version
+  - name: Installed Python Version
+    command: python --version
+    openMode: split-left
+  - name: Installed Node Version
+    command: node -v
+    openMode: split-left
