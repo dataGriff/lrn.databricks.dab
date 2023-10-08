@@ -1,0 +1,12 @@
+# The main pipeline for lrn_databricks_dab
+resources:
+  pipelines:
+    lrn_databricks_dab_pipeline:
+      name: lrn_databricks_dab_pipeline
+      target: lrn_databricks_dab_${bundle.environment}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: /Workspace/${workspace.file_path}/src
