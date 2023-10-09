@@ -18,8 +18,8 @@ tasks:
       gp sync-done waitondatabrickscli
       echo "configuring databrick-cli authentication"
 
-      declare DATABRICKS_URL=%DATABRICKS_WORKSPACE%
-      declare DATABRICKS_ACCESS_TOKEN=%DATABRICKS_PAT%
+      declare DATABRICKS_URL=$DATABRICKS_WORKSPACE
+      declare DATABRICKS_ACCESS_TOKEN=$DATABRICKS_PAT
 
       declare dbconfig=$(<~/.databrickscfg)
       if [[ $dbconfig = *"host = "* && $dbconfig = *"token = "* ]]; then
