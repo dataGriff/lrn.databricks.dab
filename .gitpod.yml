@@ -17,3 +17,4 @@ vscode:
   extensions:
     - dbaeumer.vscode-eslint
     - ms-python.python
+    - databricks.databricks
